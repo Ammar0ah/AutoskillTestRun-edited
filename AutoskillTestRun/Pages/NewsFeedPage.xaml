@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AutoskillTestRun.Pages.NewsFeedPage">
+    <ContentPage.Content>
+        <ScrollView>
+
+        <StackLayout>
+            <Entry Placeholder="Write a Title!"
+                   Text="{Binding NewsFeed.Title}" />
+            <Label Text="Write a body" />
+            <Editor Text="{Binding NewsFeed.Body}" />
+            <Image Source="{Binding NewsFeed.CoverImage}"
+                   Aspect="AspectFit">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding AddImageCommand}" />
+                </Image.GestureRecognizers>
+            </Image>
+            <Button Text="Save"
+                    Command="{Binding SaveCommand}"
+                    BackgroundColor="CornflowerBlue"
+                   />
+        </StackLayout>
+
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

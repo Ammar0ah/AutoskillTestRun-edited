@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:local="clr-namespace:AutoskillTestRun;assembly=AutoskillTestRun"
+                xmlns:behaviors="clr-namespace:AutoskillTestRun.Behaviors;assembly=AutoskillTestRun"
+                x:Class="AutoskillTestRun.Pages.NewsFeedListPage">
+    <local:BasePage.ToolbarItems>
+        <ToolbarItem Text="Add"
+                     Command="{Binding AddNewsFeedCommand}"
+                     Order="Primary"
+                     Priority="0" />
+    </local:BasePage.ToolbarItems>
+    <local:BasePage.Content>
+
+        <ListView x:Name="MyListView"
+                  ItemsSource="{Binding NewsFeeds}"
+                  SelectedItem="{Binding NewsFeed}"
+                  HasUnevenRows="True">
+
+            <ListView.Behaviors>
+                <behaviors:EventToCommandBehavior Command="{Binding SelectedItemCommand}"
+                                                  EventName="ItemSelected" />
+            </ListView.Behaviors>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Frame Margin="5"
+                               HasShadow="True"
+                               CornerRadius="10"
+                               BorderColor="Silver">
+                            <StackLayout>
+
+                                <Label Text="{Binding Title}"
+                                       FontSize="Large"
+                                       FontAttributes="Bold" />
+                                <Label Text="{Binding Body}" />
+                                <Image Aspect="AspectFit"
+                                       Source="{Binding CoverImage}" />
+                                <StackLayout Orientation="Horizontal"
+                                             Spacing="5">
+                                    <Button Text="{Binding LikesNum , StringFormat='Like {0}'}"
+                                            
+                                            Command="{Binding LikesCommand}"
+                                            BackgroundColor="{Binding BackgroundColor}"
+                                            TextColor="{Binding TextColor}"
+                                            HorizontalOptions="StartAndExpand" />
+                                    <Button Text="Delete"
+                                            Command="{Binding DeleteCommand}"
+                                            HorizontalOptions="End" />
+
+                                </StackLayout>
+
+                            </StackLayout>
+                        </Frame>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+        </ListView>
+    </local:BasePage.Content>
+</local:BasePage>
