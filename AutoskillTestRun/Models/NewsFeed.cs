@@ -5,7 +5,8 @@ using Android.Media;
 using Xamarin.Forms;
 
 namespace AutoskillTestRun.Models
-{
+{  
+    [AddINotifyPropertyChangedInterface]
     public class NewsFeed
     {  
         public int Id { get; set; }
