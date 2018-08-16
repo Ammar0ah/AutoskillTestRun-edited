@@ -39,9 +39,9 @@ namespace AutoskillTestRun.PageModels
             base.Init(initData);
             NewsFeeds = new  ObservableCollection<NewsFeed>(_databaseService.GetNewsFeeds());
             AddNewsFeedCommand = ReactiveCommand.CreateFromTask(async () => await CoreMethods.PushPageModel<NewsFeedPageModel>());
-            SelectedItemCommand = ReactiveCommand.Create<SelectedItemChangedEventArgs>(SelectedItemAction);
+            SelectedItemCommand = ReactiveCommand.CreateFromTask<SelectedItemChangedEventArgs>(SelectedItemAction);
             LikesCommand = ReactiveCommand.Create<NewsFeed>(LikeChanges);
-            DeleteCommand = ReactiveCommand.Create<NewsFeed>(DeleteItem);
+            DeleteCommand = ReactiveCommand.CreateFromTask<NewsFeed>(DeleteItem);
 
 
 
@@ -56,7 +56,7 @@ namespace AutoskillTestRun.PageModels
               NewsFeeds.Add(news);
         }
 
-        private async void SelectedItemAction(SelectedItemChangedEventArgs args)
+        private async Task SelectedItemAction(SelectedItemChangedEventArgs args)
         {
             var news = args.SelectedItem as NewsFeed;
             if (news == null)
@@ -78,7 +78,7 @@ namespace AutoskillTestRun.PageModels
 
 
         }
-        public async void DeleteItem( NewsFeed news)
+        public async Task DeleteItem( NewsFeed news)
         {  
            
            var res =  await CoreMethods.DisplayAlert("OH !", "Are you sure?", "Yes", "No");
