@@ -40,7 +40,7 @@ namespace AutoskillTestRun.PageModels
             NewsFeeds = new  ObservableCollection<NewsFeed>(_databaseService.GetNewsFeeds());
             AddNewsFeedCommand = ReactiveCommand.CreateFromTask(async () => await CoreMethods.PushPageModel<NewsFeedPageModel>());
             SelectedItemCommand = ReactiveCommand.Create<SelectedItemChangedEventArgs>(SelectedItemAction);
-            LikesCommand = ReactiveCommand.Create(LikeChanges);
+            LikesCommand = ReactiveCommand.Create<Button>(LikeChanges);
             DeleteCommand = ReactiveCommand.Create<NewsFeed>(DeleteItem);
 
 
@@ -67,11 +67,18 @@ namespace AutoskillTestRun.PageModels
             await CoreMethods.PushPageModel<NewsFeedPageModel>(news);
         }
 
-        private void LikeChanges()
+         private void LikeChanges(Button sender)
         {
-            _newsFeed.LikesNum++;
-            _newsFeed.BackgroundColor = Color.White;
-            _newsFeed.TextColor = Color.DodgerBlue;
+
+ 
+            sender.Clicked += (s, e) =>
+            {
+                _newsFeed.LikesNum++;
+                _newsFeed.BackgroundColor = Color.White;
+                _newsFeed.TextColor = Color.DodgerBlue;
+                RaisePropertyChanged();
+            };
+
 
 
         }
